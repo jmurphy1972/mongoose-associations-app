@@ -3,6 +3,18 @@ const router = require('express').Router();
 const User = require('../models/user').User;
 const Tweet = require('../models/user').Tweet;
 
+const dayjs = require('dayjs');
+
+// USERS INDEX Route
+router.get('/', (req, res) => {
+    console.log('Index Route');
+    User.find({}, (error, allUsers) => {
+        res.render('users/index.ejs', {
+            users: allUsers,
+        });
+    });
+});
+
 // NEW USER FORM
 router.get('/new', (req, res) => {
   res.render('users/new.ejs');
@@ -12,7 +24,7 @@ router.get('/new', (req, res) => {
 router.get('/:userId', (req, res) => {
     // find user in db by id and add new tweet
     User.findById(req.params.userId, (error, user) => {
-      res.render('users/show.ejs', { user });
+      res.render('users/show.ejs', { user, dayjs });
     });
 });
 
@@ -69,7 +81,7 @@ router.get('/:userId/tweets/:tweetId/edit', (req, res) => {
       });
     });
   });
-  
+
   router.delete('/:userId/tweets/:tweetId', (req, res) => {
     console.log('DELETE TWEET');
     // set the value of the user and tweet ids
@@ -85,5 +97,11 @@ router.get('/:userId/tweets/:tweetId/edit', (req, res) => {
       });
     });
   });
+
+router.delete('/:id', (req, res) => {
+    User.findByIdAndRemove(req.params.id, (error) => {
+        res.redirect('/users');
+    });
+});
 
 module.exports = router;

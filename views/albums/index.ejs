@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albums</title>
+</head>
+<body>
+    <h1>Albums</h1>
+    <a href="/albums/new" >Create New Album</a>
+    <br>
+    <ul>
+        <% for (let i=0; i<albums.length; i++) { %>
+            <li>
+                <a href="/albums/<%=albums[i]._id%>">
+                    <%= albums[i].name %>
+                </a>
+            </li>
+            <form action="/albums/<%=albums[i]._id%>?_method=DELETE" method="POST">
+                <button>DELETE</button>
+            </form>
+            <br>
+        <% } %>
+    </ul>
+</body>
+</html>

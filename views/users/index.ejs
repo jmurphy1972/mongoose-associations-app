@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <a href="/users/new" >Create New User</a>
+    <br>
+    <ul>
+        <% for (let i=0; i<users.length; i++) { %>
+            <li>
+                <a href="/users/<%=users[i]._id%>">
+                    <%= users[i].name %>
+                </a>
+            </li>
+            <form action="/users/<%=users[i]._id%>?_method=DELETE" method="POST">
+                <button>DELETE</button>
+            </form>
+            <br>
+        <% } %>
+    </ul>
+</body>
+</html>
